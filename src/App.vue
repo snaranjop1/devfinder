@@ -1,28 +1,41 @@
 <template>
   <Header />
   <Search @search="handleSearch" />
+  <Dev :dev="dev" v-if="dev" />
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 import Search from "./components/Search.vue";
+import Dev from "./components/Dev.vue";
 export default {
   name: "App",
   components: {
     Header,
     Search,
+    Dev,
+  },
+
+  data() {
+    return {
+      dev: null,
+    };
   },
 
   methods: {
-    handleSearch(event, value) {
-      console.log(event, value);
+    handleSearch(value) {
+      fetch(`https://api.github.com/users/${value}`)
+        .then((res) => res.json())
+        .then((dev) => (this.dev = dev))
+        .catch((err) => console.log(err));
     },
   },
 
   mounted() {
+    console.log("Aqui");
     fetch("https://api.github.com/users/octocat")
       .then((res) => res.json())
-      .then((dev) => console.log(dev))
+      .then((dev) => (this.dev = dev))
       .catch((err) => console.log(err));
   },
 };
@@ -52,6 +65,7 @@ export default {
 
 * {
   font-family: "IBM Plex Mono", monospace;
+  margin: 0;
 }
 
 body {
@@ -62,7 +76,6 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
   max-width: 730px;
   padding-top: 140px;
   margin-left: auto;
