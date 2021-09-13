@@ -134,8 +134,8 @@ input:checked + label:after {
 }
 
 @media (max-width: 480px) {
-  .theme {
-    margin-right: 0px;
+  .header {
+    margin-bottom: 40px;
   }
 }
 </style>

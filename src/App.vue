@@ -32,7 +32,6 @@ export default {
   },
 
   mounted() {
-    console.log("Aqui");
     fetch("https://api.github.com/users/octocat")
       .then((res) => res.json())
       .then((dev) => (this.dev = dev))
@@ -77,20 +76,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 730px;
-  padding-top: 140px;
+  padding-top: 100px;
   margin-left: auto;
   margin-right: auto;
 }
 
 @media (max-width: 768px) {
   #app {
+    padding-top: 70px;
     max-width: 600px;
   }
 }
 
 @media (max-width: 480px) {
   #app {
-    padding-top: 20px;
+    padding-top: 30px;
     max-width: 385px;
   }
 }

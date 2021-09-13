@@ -5,7 +5,7 @@
       <div class="name-joined">
         <div>
           <h1 class="name">{{ name }}</h1>
-          <a :href="githubLink" class="login">@{{ login }}</a>
+          <a :href="githubLink" class="login" target="_blank">@{{ login }}</a>
         </div>
         <p class="created-at">Joined {{ formatedCreatedAt }}</p>
       </div>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="social">
-      <div>
+      <div :class="{ disabled: !location }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon"
@@ -41,7 +41,7 @@
         </svg>
         <p>{{ checkSocial(location) }}</p>
       </div>
-      <div>
+      <div :class="{ disabled: !blogUrl }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon"
@@ -56,7 +56,7 @@
         </svg>
         <p>{{ checkSocial(blogUrl) }}</p>
       </div>
-      <div>
+      <div :class="{ disabled: !twitterUsername }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon"
@@ -69,7 +69,7 @@
         </svg>
         <p>{{ checkSocial(twitterUsername) }}</p>
       </div>
-      <div>
+      <div :class="{ disabled: !company }">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="icon"
@@ -143,10 +143,6 @@ export default {
       return moment(this.createdAt).format("DD MMM YYYY");
     },
   },
-
-  mounted() {
-    console.log(this.dev);
-  },
 };
 </script>
 
@@ -182,6 +178,7 @@ export default {
   white-space: nowrap;
   max-width: 300px;
   text-overflow: ellipsis;
+  color: var(--text-alt-color);
 }
 
 .login {
@@ -228,6 +225,7 @@ export default {
 .stats .value {
   margin: 0;
   font-size: 1.8rem;
+  color: var(--text-alt-color);
 }
 
 .social {
@@ -242,8 +240,101 @@ export default {
   align-items: center;
 }
 
+.social div.disabled {
+  opacity: 0.5;
+}
+
 .social .icon {
   height: 25px;
   padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .name-joined {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio {
+    margin-left: 0px;
+    margin-top: 35px;
+    margin-bottom: 30px;
+  }
+
+  .stats {
+    margin-left: 0px;
+  }
+
+  .social {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px 0px;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dev-card {
+    padding: 30px;
+  }
+
+  .name-joined {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .avatar {
+    height: 80px;
+    margin-right: 20px;
+  }
+
+  .name {
+    margin-bottom: 3px;
+    font-size: 1.5rem;
+    max-width: 200px;
+  }
+
+  .created-at {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+  }
+
+  .bio {
+    margin-left: 0px;
+    margin-top: 35px;
+    margin-bottom: 30px;
+    opacity: 0.8;
+  }
+
+  .stats {
+    margin-left: 0px;
+    display: flex;
+    background: var(--background-color);
+    justify-content: space-between;
+    padding: 15px 25px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .stats .label {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 0.7rem;
+  }
+
+  .stats .value {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  .social {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px 0px;
+    margin-left: 0px;
+  }
 }
 </style>
